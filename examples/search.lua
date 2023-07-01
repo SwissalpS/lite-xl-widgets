@@ -120,9 +120,9 @@ widget.defer_draw = false
 widget.target_size = 250
 
 local node = core.root_view:get_primary_node()
-node:split("right", widget, {x=true}, true)
+node:split("right", widget, { x = true }, true)
 
-command.add(nil,{
+command.add(nil, {
   ["find-widget:toggle"] = function()
     widget:toggle_visible()
   end
