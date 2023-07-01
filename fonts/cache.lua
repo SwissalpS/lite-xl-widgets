@@ -214,9 +214,9 @@ function FontCache:save_cache()
   local fp = io.open(USERDIR .. "/font_cache.lua", "w")
   if fp then
     local output = "{\n"
-      .. "found = "..tostring(self.found)..",\n"
-      .. "found_monospaced = "..tostring(self.found_monospaced)..",\n"
-      .. "monospaced = "..tostring(self.monospaced)..",\n"
+      .. "found = " .. tostring(self.found) .. ",\n"
+      .. "found_monospaced = " .. tostring(self.found_monospaced) .. ",\n"
+      .. "monospaced = " .. tostring(self.monospaced) .. ",\n"
       .. "[\"fonts\"] = "
       .. common.serialize(
         self.fonts,
