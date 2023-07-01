@@ -43,7 +43,7 @@ local function split(s, delimeter, delimeter_pattern)
   end
 
   local result = {};
-  for match in (s..delimeter):gmatch("(.-)"..delimeter_pattern) do
+  for match in (s .. delimeter):gmatch("(.-)" .. delimeter_pattern) do
     table.insert(result, match);
   end
   return result;
@@ -150,7 +150,7 @@ function Fonts.show_picker_ask_monospace(callback)
       Fonts.show_picker(callback, item.mono)
     end,
     suggest = function(text)
-      local res = common.fuzzy_match({"Yes", "No"}, text)
+      local res = common.fuzzy_match({ "Yes", "No" }, text)
       for i, name in ipairs(res) do
         res[i] = {
           text = name,
