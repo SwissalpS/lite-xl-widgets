@@ -450,12 +450,12 @@ function Widget:draw_border(x, y, w, h)
   )
   --bottom
   renderer.draw_rect(
-    x, y+h - self.border.width, w + x % 1 - self.border.width, self.border.width,
+    x, y + h - self.border.width, w + x % 1 - self.border.width, self.border.width,
     self.border.color or style.text
   )
   --right
   renderer.draw_rect(
-    x+w - self.border.width, y, self.border.width, h,
+    x + w - self.border.width, y, self.border.width, h,
     self.border.color or style.text
   )
   --left
