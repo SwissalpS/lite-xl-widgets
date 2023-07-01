@@ -91,7 +91,7 @@ end
 ---@param data any
 function ItemsList:add_item(text, data)
   if type(text) == "string" then
-    text = {text}
+    text = { text }
   end
   self.list:add_row(text, data)
   self.list:set_visible_rows()
@@ -104,7 +104,7 @@ end
 ---@param data any
 function ItemsList:edit_item(idx, text, data)
   if type(text) == "string" then
-    text = {text}
+    text = { text }
   end
   self.list:set_row(idx, text)
   if data then
@@ -125,7 +125,7 @@ end
 function ItemsList:get_items()
   local output = {}
   local count = #self.list.rows
-  for i=1, count, 1 do
+  for i = 1, count, 1 do
     table.insert(output, self.list:get_row_text(i))
   end
   return output
