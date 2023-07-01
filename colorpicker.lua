@@ -21,24 +21,24 @@ local HUE_COLOR_SEGMENT = 100 / 6
 ---@type widget.colorpicker.colorrange[]
 local HUE_COLOR_RANGES = {
   -- red -> yellow
-  { {255, 0, 0, 255}, {255, 255, 0, 255} },
+  { { 255, 0, 0, 255 }, { 255, 255, 0, 255 } },
   -- yellow -> green
-  { {255, 255, 0, 255}, {0, 255, 0, 255} },
+  { { 255, 255, 0, 255 }, { 0, 255, 0, 255 } },
   -- green -> cyan
-  { {0, 255 ,0, 255}, {0, 255, 255, 255} },
+  { { 0, 255 , 0, 255 }, { 0, 255, 255, 255 } },
   -- cyan -> blue
-  { {0, 255, 255, 255}, {0, 0, 255, 255} },
+  { { 0, 255, 255, 255 }, { 0, 0, 255, 255 } },
   -- blue -> purple
-  { {0, 0, 255, 255}, {255, 0, 255, 255} },
+  { { 0, 0, 255, 255 }, { 255, 0, 255, 255 } },
   -- purple -> red
-  { {255, 0, 255, 255}, {255, 0, 0, 255} }
+  { { 255, 0, 255, 255 }, { 255, 0, 0, 255 } }
 }
 
 ---@type renderer.color
-local COLOR_BLACK = {0, 0, 0, 255}
+local COLOR_BLACK = { 0, 0, 0, 255 }
 
 ---@type renderer.color
-local COLOR_WHITE = {255, 255, 255, 255}
+local COLOR_WHITE = { 255, 255, 255, 255 }
 
 ---@class widget.colorpicker : widget
 ---@field hue_color renderer.color
@@ -114,7 +114,7 @@ function ColorPicker:new(parent, color)
 
   self:set_border_width(0)
 
-  self:set_color(color or {255, 0, 0, 255})
+  self:set_color(color or { 255, 0, 0, 255 })
 end
 
 ---Converts an RGB color value to HSL. Conversion formula
@@ -146,7 +146,7 @@ function ColorPicker.rgb_to_hsl(rgba)
     h = h / 6
   end
 
-  return {h, s, l, a and a/255 or 1}
+  return { h, s, l, a and a / 255 or 1 }
 end
 
 ---Converts an HSL color value to RGB. Conversion formula
@@ -167,9 +167,9 @@ function ColorPicker.hsl_to_rgb(h, s, l, a)
     local function hue2rgb(p, q, t)
       if t < 0   then t = t + 1 end
       if t > 1   then t = t - 1 end
-      if t < 1/6 then return p + (q - p) * 6 * t end
-      if t < 1/2 then return q end
-      if t < 2/3 then return p + (q - p) * (2/3 - t) * 6 end
+      if t < 1 / 6 then return p + (q - p) * 6 * t end
+      if t < 1 / 2 then return q end
+      if t < 2 / 3 then return p + (q - p) * (2 / 3 - t) * 6 end
       return p
     end
 
@@ -177,12 +177,12 @@ function ColorPicker.hsl_to_rgb(h, s, l, a)
     if l < 0.5 then q = l * (1 + s) else q = l + s - l * s end
     local p = 2 * l - q
 
-    r = hue2rgb(p, q, h + 1/3)
+    r = hue2rgb(p, q, h + 1 / 3)
     g = hue2rgb(p, q, h)
-    b = hue2rgb(p, q, h - 1/3)
+    b = hue2rgb(p, q, h - 1 / 3)
   end
 
-  return {r * 255, g * 255, b * 255, a * 255}
+  return { r * 255, g * 255, b * 255, a * 255 }
 end
 
 ---Converts an RGB color value to HSV. Conversion formula
@@ -213,7 +213,7 @@ function ColorPicker.rgb_to_hsv(rgba)
     h = h / 6
   end
 
-  return {h, s, v, a/255}
+  return { h, s, v, a / 255 }
 end
 
 ---Converts an HSV color value to RGB. Conversion formula
@@ -244,7 +244,7 @@ function ColorPicker.hsv_to_rgb(h, s, v, a)
   elseif i == 5 then r, g, b = v, p, q
   end
 
-  return {math.ceil(r * 255), math.ceil(g * 255), math.ceil(b * 255), math.ceil(a * 255)}
+  return { math.ceil(r * 255), math.ceil(g * 255), math.ceil(b * 255), math.ceil(a * 255) }
 end
 
 ---Converts a css format color string into a renderer.color if possible,
@@ -292,7 +292,7 @@ function ColorPicker.color_from_string(color)
     b = b * 16
   end
 
-  return {r, g, b, a}
+  return { r, g, b, a }
 end
 
 ---Gets a color between two given colors on the position
@@ -303,7 +303,7 @@ end
 ---@return renderer.color color
 function ColorPicker.color_in_between(from_color, to_color, percent)
   local color = {}
-  for i=1, 4 do
+  for i = 1, 4 do
     if from_color[i] == to_color[i] then
       color[i] = from_color[i]
     else
@@ -342,7 +342,7 @@ function ColorPicker:get_hue_color()
   else
     range = 6
   end
-  local range_position = (w * pos_percent) - ((range_size * range)-range_size)
+  local range_position = (w * pos_percent) - ((range_size * range) - range_size)
   local range_percent = range_position / range_size
   return ColorPicker.color_in_between(
     HUE_COLOR_RANGES[range][1],
@@ -359,7 +359,7 @@ function ColorPicker:get_saturation_color()
   local pos_percent = pos / 100
   local range_size = w
   local range, color1, color2 = 1, COLOR_WHITE, self.hue_color
-  local range_position = (w * pos_percent) - ((range_size * range)-range_size)
+  local range_position = (w * pos_percent) - ((range_size * range) - range_size)
   local range_percent = range_position / range_size
   return ColorPicker.color_in_between(color1, color2, range_percent)
 end
@@ -372,7 +372,7 @@ function ColorPicker:get_brightness_color()
   local pos_percent = pos / 100
   local range_size = w
   local range, color1, color2 = 1, COLOR_BLACK, self.saturation_color
-  local range_position = (w * pos_percent) - ((range_size * range)-range_size)
+  local range_position = (w * pos_percent) - ((range_size * range) - range_size)
   local range_percent = range_position / range_size
   return ColorPicker.color_in_between(color1, color2, range_percent)
 end
@@ -451,45 +451,45 @@ function ColorPicker:draw_hue(x, y, w, h)
   local cwidth = 1
   local cheight = h or 10
 
-  if w < 255*6 then
+  if w < 255 * 6 then
     step = 255 / (w / 6)
   else
     cwidth = (w / 6) / 255
   end
 
   -- red -> yellow
-  for g=0, 255, step do
-    renderer.draw_rect(x, y, cwidth, cheight, {255, g, 0, 255})
+  for g = 0, 255, step do
+    renderer.draw_rect(x, y, cwidth, cheight, { 255, g, 0, 255 })
     x = x + cwidth
   end
 
   -- yellow -> green
-  for r=255, 0, -step do
-    renderer.draw_rect(x, y, cwidth, cheight, {r, 255, 0, 255})
+  for r = 255, 0, -step do
+    renderer.draw_rect(x, y, cwidth, cheight, { r, 255, 0, 255 })
     x = x + cwidth
   end
 
   -- green -> cyan
-  for b=0, 255, step do
-    renderer.draw_rect(x, y, cwidth, cheight, {0, 255, b, 255})
+  for b = 0, 255, step do
+    renderer.draw_rect(x, y, cwidth, cheight, { 0, 255, b, 255 })
     x = x + cwidth
   end
 
   -- cyan -> blue
-  for g=255, 0, -step do
-    renderer.draw_rect(x, y, cwidth, cheight, {0, g, 255, 255})
+  for g = 255, 0, -step do
+    renderer.draw_rect(x, y, cwidth, cheight, { 0, g, 255, 255 })
     x = x + cwidth
   end
 
   -- blue -> purple
-  for r=0, 255, step do
-    renderer.draw_rect(x, y, cwidth, cheight, {r, 0, 255, 255})
+  for r = 0, 255, step do
+    renderer.draw_rect(x, y, cwidth, cheight, { r, 0, 255, 255 })
     x = x + cwidth
   end
 
   -- purple -> red
-  for b=255, 0, -step do
-    renderer.draw_rect(x, y, cwidth, cheight, {255, 0, b, 255})
+  for b = 255, 0, -step do
+    renderer.draw_rect(x, y, cwidth, cheight, { 255, 0, b, 255 })
     x = x + cwidth
   end
 
@@ -515,7 +515,7 @@ function ColorPicker:draw_saturation(x, y, w, h)
   end
 
   -- white to base
-  for i=0, 255, step do
+  for i = 0, 255, step do
     local color = ColorPicker.color_in_between(COLOR_WHITE, self.hue_color, i / 255)
     renderer.draw_rect(x, y, cwidth, cheight, color)
     x = x + cwidth
@@ -543,7 +543,7 @@ function ColorPicker:draw_brightness(x, y, w, h)
   end
 
   -- black to base
-  for i=0, 255, step do
+  for i = 0, 255, step do
     local color = ColorPicker.color_in_between(COLOR_BLACK, self.saturation_color, i / 255)
     renderer.draw_rect(x, y, cwidth, cheight, color)
     x = x + cwidth
@@ -674,7 +674,7 @@ function ColorPicker:draw_selector(x, y, h, color)
   x = x - border - ((10 * SCALE) / border)
   y = y - border
   renderer.draw_rect(x, y, 14 * SCALE, h + (border * 2), COLOR_WHITE)
-  renderer.draw_rect(x+border, y + border, 10 * SCALE, h, color)
+  renderer.draw_rect(x + border, y + border, 10 * SCALE, h, color)
 end
 
 function ColorPicker:draw()
