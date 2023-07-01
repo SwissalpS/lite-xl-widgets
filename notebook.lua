@@ -117,9 +117,9 @@ end
 
 ---Set or remove the icon for the given pane.
 ---@param name string
----@param icon? string|nil
----@param color? renderer.color|nil
----@param hover_color? renderer.color|nil
+---@param icon? string | nil
+---@param color? renderer.color | nil
+---@param hover_color? renderer.color | nil
 function NoteBook:set_pane_icon(name, icon, color, hover_color)
   local pane = self:get_pane(name)
   if pane then
@@ -137,7 +137,7 @@ function NoteBook:update()
   for pos, pane in pairs(self.panes) do
     if pos ~= 1 then
       pane.tab:set_position(
-        self.panes[pos-1].tab:get_right() + HSPACING, 0
+        self.panes[pos - 1].tab:get_right() + HSPACING, 0
       )
     else
       pane.tab:set_position(0, 0)
