@@ -19,7 +19,7 @@ widget:centered()
 
 ---@type widget.listbox
 local listbox = ListBox(widget)
-listbox.size.y = widget.size.y - widget.border.width*2
+listbox.size.y = widget.size.y - widget.border.width * 2
 listbox:centered()
 
 listbox:add_row({
@@ -27,7 +27,7 @@ listbox:add_row({
   ListBox.COLEND,
   "A message."
 })
-for i=1, 10000 do
+for i = 1, 10000 do
   listbox:add_row({
     tostring(i) .. ". Good ",
     ListBox.COLEND,
@@ -46,7 +46,7 @@ end
 
 widget:show()
 
-command.add(nil,{
+command.add(nil, {
   ["listbox-widget:toggle"] = function()
     widget:toggle_visible()
   end
