@@ -50,7 +50,7 @@ function KeybindDialog:new()
   self.add = Button(self.panel, "Add")
   self.add:set_icon("B")
   function self.add:on_click()
-    this.shortcuts:add_row({"none"})
+    this.shortcuts:add_row({ "none" })
     this.shortcuts:set_selected(#this.shortcuts.rows)
     this.shortcuts:set_visible_rows()
     this.selected = #this.shortcuts.rows
@@ -118,7 +118,7 @@ end
 function KeybindDialog:set_bindings(bindings)
   self.shortcuts:clear()
   for _, binding in ipairs(bindings) do
-    self.shortcuts:add_row({binding})
+    self.shortcuts:add_row({ binding })
   end
   if #bindings > 0 then
     self.shortcuts:set_selected(1)
@@ -130,7 +130,7 @@ end
 ---@return table<integer, string>
 function KeybindDialog:get_bindings()
   local bindings = {}
-  for idx=1, #self.shortcuts.rows, 1 do
+  for idx = 1, #self.shortcuts.rows, 1 do
     table.insert(bindings, self.shortcuts:get_row_text(idx))
   end
   return bindings
@@ -158,15 +158,15 @@ function KeybindDialog:on_reset() end
 function KeybindDialog:update()
   if not KeybindDialog.super.update(self) then return false end
 
-  self.shortcuts:set_position(style.padding.x/2, 0)
+  self.shortcuts:set_position(style.padding.x / 2, 0)
 
   self.add:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.shortcuts:get_bottom() + style.padding.y
   )
 
   self.remove:set_position(
-    self.add:get_right() + (style.padding.x/2),
+    self.add:get_right() + (style.padding.x / 2),
     self.shortcuts:get_bottom() + style.padding.y
   )
 
@@ -176,16 +176,16 @@ function KeybindDialog:update()
   )
 
   self.message:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.line:get_bottom() + style.padding.y
   )
   self.mouse_intercept:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.message:get_bottom() + style.padding.y
   )
 
   self.save:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.mouse_intercept:get_bottom() + style.padding.y
   )
   self.reset:set_position(
@@ -242,9 +242,9 @@ function keymap.on_key_pressed(k, ...)
       if mk == "altgr" then
         keymap.modkeys["ctrl"] = false
       end
-      current_dialog.shortcuts:set_row(current_dialog.selected, {key_to_stroke("")})
+      current_dialog.shortcuts:set_row(current_dialog.selected, { key_to_stroke("") })
     else
-      current_dialog.shortcuts:set_row(current_dialog.selected, {key_to_stroke(k)})
+      current_dialog.shortcuts:set_row(current_dialog.selected, { key_to_stroke(k) })
     end
     return true
   else
