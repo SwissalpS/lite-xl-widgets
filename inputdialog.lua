@@ -53,11 +53,11 @@ function InputDialog:on_save(value) end
 function InputDialog:update()
   if not InputDialog.super.update(self) then return false end
 
-  self.message:set_position(style.padding.x/2, 0)
-  self.text:set_position(style.padding.x/2, self.message:get_bottom() + style.padding.y)
+  self.message:set_position(style.padding.x / 2, 0)
+  self.text:set_position(style.padding.x / 2, self.message:get_bottom() + style.padding.y)
 
   self.save:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.text:get_bottom() + style.padding.y
   )
   self.cancel:set_position(
