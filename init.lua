@@ -27,18 +27,18 @@ local ScrollBar = require "libraries.widget.scrollbar"
 ---@field public dy number Dragging initial y position
 
 ---@class widget.animation.options
----Prevents duplicated animations from getting added.
+---Prevents duplicate animations from getting added.
 ---@field name? string
 ---Speed of the animation, defaults to 0.5
 ---@field rate? number
 ---Called each time the value of a property changes.
----@field on_step? fun(target:table, property:string, value:number)
+---@field on_step? function(target:table, property:string, value:number)
 ---Called when the animation finishes.
----@field on_complete? fun(widget:widget)
+---@field on_complete? function(widget:widget)
 
 ---@class widget.animation
 ---@field target table
----@field properties table<string,number>
+---@field properties table<string, number>
 ---@field options? widget.animation.options
 
 ---Represents a reference to a font stored elsewhere.
@@ -52,7 +52,7 @@ local ScrollBar = require "libraries.widget.scrollbar"
 ---| "left"
 ---| "right"
 
----@alias widget.styledtext table<integer, renderer.font|widget.fontreference|renderer.color|integer|string>
+---@alias widget.styledtext table<integer, renderer.font | widget.fontreference | renderer.color | integer | string>
 
 ---A base widget
 ---@class widget : core.view
@@ -62,7 +62,7 @@ local ScrollBar = require "libraries.widget.scrollbar"
 ---@field public position widget.position
 ---Modifying this property directly is not advised, use set_size() instead.
 ---@field public size widget.position
----@field public childs table<integer,widget>
+---@field public childs table<integer, widget>
 ---@field public child_active widget | nil
 ---@field public zindex integer
 ---@field public border widget.border
@@ -110,8 +110,8 @@ local floating_widgets = {}
 function Widget:new(parent, floating)
   Widget.super.new(self)
 
-  self.v_scrollbar = ScrollBar(self, {direction = "v", alignment = "e"})
-  self.h_scrollbar = ScrollBar(self, {direction = "h", alignment = "e"})
+  self.v_scrollbar = ScrollBar(self, { direction = "v", alignment = "e" })
+  self.h_scrollbar = ScrollBar(self, { direction = "h", alignment = "e" })
 
   self.type_name = "widget"
   self.parent = parent
@@ -142,8 +142,8 @@ function Widget:new(parent, floating)
   self.label = ""
   self.input_text = false
   self.textview = nil
-  self.mouse = {x = 0, y = 0}
-  self.prev_size = {x = 0, y = 0}
+  self.mouse = { x = 0, y = 0 }
+  self.prev_size = { x = 0, y = 0 }
   self.is_scrolling = false
 
   self.mouse_is_pressed = false
@@ -170,7 +170,7 @@ function Widget:__tostring()
 end
 
 ---Add a child widget, automatically assign a zindex if non set and sorts
----them in reverse order for better events matching.
+---them in reverse order for better event matching.
 ---@param child widget
 function Widget:add_child(child)
   if not child.zindex then
@@ -384,7 +384,7 @@ function Widget:draw_styled_text(text, x, y, only_calc, start_idx, end_idx)
   start_idx = start_idx or 1
   end_idx = end_idx or #text
 
-  for pos=start_idx, end_idx, 1 do
+  for pos = start_idx, end_idx, 1 do
     local element = text[pos]
     local ele_type = type(element)
     if
@@ -466,7 +466,7 @@ function Widget:draw_border(x, y, w, h)
 end
 
 ---Called by lite node system to properly resize the widget.
----@param axis string | "'x'" | "'y'"
+---@param axis string "x" | "y"
 ---@param value number
 function Widget:set_target_size(axis, value)
   if not self.visible then
@@ -543,7 +543,7 @@ function Widget:update_position()
   end
 end
 
----Set the position of the widget and updates the child absolute coordinates
+---Set the position of the widget and update the child absolute coordinates
 ---@param x? integer
 ---@param y? integer
 function Widget:set_position(x, y)
@@ -591,7 +591,7 @@ function Widget:get_font(font)
   return font
 end
 
----Get the relative position in relation to parent
+---Get the relative position in relation to parent.
 ---@return widget.position
 function Widget:get_position()
   local position = { x = self.position.x, y = self.position.y }
@@ -620,7 +620,7 @@ function Widget:get_right()
   return self:get_position().x + self:get_width()
 end
 
----Get the bottom y coordinate relative to parent
+---Get the bottom y coordinate relative to parent.
 ---@return number
 function Widget:get_bottom()
   return self:get_position().y + self:get_height()
@@ -650,7 +650,7 @@ function Widget:get_real_width()
   return size
 end
 
----Check if the given mouse coordinate is hovering the widget
+---Check if the given mouse coordinate is hovering the widget.
 ---@param x number
 ---@param y number
 ---@return boolean
@@ -705,10 +705,10 @@ function Widget:centered()
   )
 end
 
----Replaces current active child with a new one and calls the
+---Replace current active child with a new one and call the
 ---activate/deactivate events of the child. This is especially
 ---used to send text input events to widgets with input_text support.
----@param child? widget If nil deactivates current child
+---@param child? widget | nil If nil deactivates current child
 function Widget:swap_active_child(child)
   if self.parent then
     self.parent:swap_active_child(child)
@@ -742,15 +742,15 @@ function Widget:swap_active_child(child)
   end
 end
 
----Calculates the y scrollable size taking into account the bottom most
----widget or the size of the widget it self if greater.
+---Calculate the y scrollable size taking the larger size of
+---either this widget or the visible child widget farthest down.
 ---@return number
 function Widget:get_scrollable_size()
   return math.max(self.size.y, self:get_real_height())
 end
 
----Calculates the x scrollable size taking into account the right most
----widget or the size of the widget it self if greater.
+---Calculate the x scrollable size taking the larger size of
+---either this widget or the visible widget farthest to the right.
 ---@return number
 function Widget:get_h_scrollable_size()
   return math.max(self.size.x, self:get_real_width())
@@ -782,7 +782,7 @@ function Widget:on_file_dropped(filename, x, y)
   return false
 end
 
----Redirects any text input to active child with the input_text flag.
+---Redirect text input to active child with the input_text flag.
 ---@param text string
 ---@return boolean processed
 function Widget:on_text_input(text)
@@ -798,7 +798,7 @@ function Widget:on_text_input(text)
   return false
 end
 
----Send mouse pressed events to hovered child or starts dragging if enabled.
+---Send mouse pressed event to hovered child or start dragging, if enabled.
 ---@param button widget.clicktype
 ---@param x number
 ---@param y number
@@ -811,7 +811,7 @@ function Widget:on_mouse_pressed(button, x, y, clicks)
     local parent = self.parent
     while parent do
       -- propagate to parents so if mouse is not on top still
-      -- reach the childrens when the mouse is released
+      -- reach the children when the mouse is released
       parent.is_scrolling = true
       parent = parent.parent
     end
@@ -831,7 +831,7 @@ function Widget:on_mouse_pressed(button, x, y, clicks)
 
     if self.parent then
       -- propagate to parents so if mouse is not on top still
-      -- reach the childrens when the mouse is released
+      -- reach the children when the mouse is released
       self.parent.mouse_is_pressed = true
     end
 
@@ -848,8 +848,8 @@ function Widget:on_mouse_pressed(button, x, y, clicks)
   return true
 end
 
----Send mouse released events to hovered child, ends dragging if enabled and
----emits on click events if applicable.
+---Send mouse released event to hovered child, end dragging if enabled and
+---emit on click events, if applicable.
 ---@param button widget.clicktype
 ---@param x number
 ---@param y number
@@ -928,7 +928,7 @@ end
 
 ---Event emitted when the value of the widget changes.
 ---If applicable, child widgets should call this method
----when its value changes.
+---when their value changes.
 ---@param value any
 function Widget:on_change(value) end
 
@@ -945,10 +945,10 @@ function Widget:activate() end
 ---Emitted to input_text widgets on lost focus.
 function Widget:deactivate() end
 
----Besides the on_mouse_moved this event emits on_mouse_enter
----and on_mouse_leave for easy hover effects. Also, if the
----widget is scrollable and pressed this will drag it unless
----there is an active input_text child active.
+---Besides the on_mouse_moved, emit on_mouse_enter
+---and on_mouse_leave events for easy hover effects.
+---Also, if the widget is scrollable and pressed, drag
+---it, unless there is an active input_text child active.
 ---@param x number
 ---@param y number
 ---@param dx number
@@ -1116,14 +1116,14 @@ function Widget:on_scale_change(new_scale, prev_scale)
   end
 end
 
----Registers a new animation to be ran on the update cycle.
----@param target? table If nil assumes properties belong to widget it self.
----@param properties table<string,number>
+---Register a new animation to be run on the update cycle.
+---@param target? table | nil If nil, assumes properties belong to this widget.
+---@param properties table<string, number>
 ---@param options? widget.animation.options
 function Widget:animate(target, properties, options)
   if not target then target = self end
 
-  -- if name is set then prevent adding if another one with the same
+  -- if name is set then prevent adding, if another one with the same
   -- animation name is already running
   if options and options.name then
     for _, animation in ipairs(self.animations) do
@@ -1140,7 +1140,7 @@ function Widget:animate(target, properties, options)
   })
 end
 
----Runs all registered animations removing duplicated and finished ones.
+---Run all registered animations removing duplicates and finished ones.
 function Widget:run_animations()
   if #self.animations > 0 then
     ---@type table<widget.animation, widget.animation>
@@ -1148,10 +1148,10 @@ function Widget:run_animations()
 
     local targets = {}
     local deleted = 0
-    for i=1, #self.animations do
+    for i = 1, #self.animations do
       local animation = self.animations[i - deleted]
 
-      -- do not run animations that change same target to prevent conflicts.
+      -- do not run animations that change same target, to prevent conflicts.
       if not targets[animation.target] then
         local finished = true
         local options = animation.options or {}
@@ -1174,14 +1174,14 @@ function Widget:run_animations()
           deleted = deleted + 1
         end
         targets[animation.target] = animation
-      -- only registers it as duplicated if the animation does needs to
-      -- perform any tasks on completion.
+      -- only register it as duplicate if the animation needs to
+      -- perform tasks on completion.
       elseif not targets[animation.target].on_complete then
         duplicates[targets[animation.target]] = animation
       end
     end
 
-    -- remove older duplcated animations that modify same target and properties
+    -- remove older duplcate animations that modify same target and properties
     for duplicate, newer_animation in pairs(duplicates) do
       local exact_properties = true
       for name, _ in pairs(duplicate.properties) do
@@ -1210,7 +1210,7 @@ function Widget:run_animations()
   end
 end
 
----If visible execute the widget calculations and returns true.
+---If visible, execute the widget calculations and return true.
 ---@return boolean
 function Widget:update()
   if not self:is_visible() then return false end
@@ -1236,7 +1236,7 @@ function Widget:draw_scrollbar()
   end
 end
 
----If visible draw the widget and returns true.
+---If visible, draw the widget and return true.
 ---@return boolean
 function Widget:draw()
   if not self:is_visible() then return false end
@@ -1264,7 +1264,7 @@ function Widget:draw()
     )
   end
 
-  for i=#self.childs, 1, -1 do
+  for i = #self.childs, 1, -1 do
     self.childs[i]:draw()
   end
 
@@ -1277,15 +1277,15 @@ function Widget:draw()
   return true
 end
 
----Recursively destroy all childs from the widget.
+---Recursively destroy all children of the widget.
 function Widget:destroy_childs()
-  for _=1, #self.childs do
+  for _ = 1, #self.childs do
     self.childs[1]:destroy_childs()
     table.remove(self.childs, 1)
   end
 end
 
----If floating, remove the widget from the floating widgets list
+---If floating, remove the widget from the floating widgets list,
 ---to allow proper garbage collection.
 function Widget:destroy()
   if not self.parent or self.defer_draw then
@@ -1300,7 +1300,7 @@ function Widget:destroy()
   end
 end
 
----Flag that indicates if the rootview events are already overrided.
+---Flag that indicates if the rootview events are already overriden.
 ---@type boolean
 local root_overrided = false
 
@@ -1321,7 +1321,7 @@ function Widget.override_rootview()
 
   function RootView:on_mouse_pressed(button, x, y, clicks)
     local pressed = false
-    for i=#floating_widgets, 1, -1 do
+    for i = #floating_widgets, 1, -1 do
       local widget = floating_widgets[i]
       if widget.visible then
         widget.mouse_pressed_outside = not widget:mouse_on_top(x, y)
@@ -1347,7 +1347,7 @@ function Widget.override_rootview()
 
   function RootView:on_mouse_released(button, x, y)
     local released = false
-    for i=#floating_widgets, 1, -1 do
+    for i = #floating_widgets, 1, -1 do
       local widget = floating_widgets[i]
       if widget.visible then
         if
@@ -1371,7 +1371,7 @@ function Widget.override_rootview()
   function RootView:on_mouse_moved(x, y, dx, dy)
     local moved  = false
     if core.active_view ~= core.command_view then
-      for i=#floating_widgets, 1, -1 do
+      for i = #floating_widgets, 1, -1 do
         local widget = floating_widgets[i]
         if widget.visible then
           if
@@ -1409,7 +1409,7 @@ function Widget.override_rootview()
   end
 
   function RootView:on_mouse_wheel(y, x)
-    for i=#floating_widgets, 1, -1 do
+    for i = #floating_widgets, 1, -1 do
       local widget = floating_widgets[i]
       if
         widget.visible and widget.defer_draw and widget:on_mouse_wheel(y, x)
@@ -1421,7 +1421,7 @@ function Widget.override_rootview()
   end
 
   function RootView:on_file_dropped(filename, x, y)
-    for i=#floating_widgets, 1, -1 do
+    for i = #floating_widgets, 1, -1 do
       local widget = floating_widgets[i]
       if
         widget.visible and widget.defer_draw
@@ -1435,7 +1435,7 @@ function Widget.override_rootview()
   end
 
   function RootView:on_text_input(text)
-    for i=#floating_widgets, 1, -1 do
+    for i = #floating_widgets, 1, -1 do
       local widget = floating_widgets[i]
       if
         widget.visible and widget.defer_draw and widget:on_text_input(text)
@@ -1449,7 +1449,7 @@ function Widget.override_rootview()
   function RootView:update()
     root_view_update(self)
     local count = #floating_widgets
-    for i=1, count, 1 do
+    for i = 1, count, 1 do
       local widget = floating_widgets[i]
       if widget.visible and widget.defer_draw then
         widget:update()
@@ -1459,7 +1459,7 @@ function Widget.override_rootview()
 
   function RootView:draw()
     local count = #floating_widgets
-    for i=1, count, 1 do
+    for i = 1, count, 1 do
       local widget = floating_widgets[i]
       if widget.visible and widget.defer_draw then
         core.root_view:defer_draw(widget.draw, widget)
