@@ -20,17 +20,17 @@ local FontReader = Object:extend()
 ---@class  widget.fonts.data
 ---@field public path string
 ---@field public id number @Numerical id of the font
----@field public type '"ttc"' | '"ttf"' | '"otf"'
+---@field public type "ttc" | "ttf" | "otf"
 ---@field public copyright string
 ---@field public family string
----@field public subfamily '"Regular"' | '"Bold"' | '"Italic"' | '"Bold Italic"'
+---@field public subfamily "Regular" | "Bold" | "Italic" | "Bold Italic"
 ---@field public fullname string
 ---@field public version string
 ---@field public psname string
 ---@field public url string
 ---@field public license string
 ---@field public tfamily string
----@field public tsubfamily '"Regular"' | '"Bold"' | '"Italic"' | '"Bold Italic"'
+---@field public tsubfamily "Regular" | "Bold" | "Italic" | "Bold Italic"
 ---@field public wwsfamily string
 ---@field public wwssubfamily string
 ---@field public monospace boolean
@@ -42,20 +42,20 @@ local FontReader = Object:extend()
 local FontInfo = Object:extend()
 
 ---@alias widget.fonts.style
----|>'"regular"'
----| '"bold"'
----| '"italic"'
----| '"bold italic"'
----| '"thin"'
----| '"medium"'
----| '"light"'
----| '"black"'
----| '"condensed"'
----| '"oblique"'
----| '"bold oblique"'
----| '"extra nold"'
----| '"Extra bold italic"'
----| '"bold condensed"'
+---|>"regular"
+---| "bold"
+---| "italic"
+---| "bold italic"
+---| "thin"
+---| "medium"
+---| "light"
+---| "black"
+---| "condensed"
+---| "oblique"
+---| "bold oblique"
+---| "extra nold"
+---| "Extra bold italic"
+---| "bold condensed"
 
 --------------------------------------------------------------------------------
 -- FontCDATA Implementation
@@ -66,7 +66,7 @@ function FontCDATA:new(data)
 end
 
 function FontCDATA:__tostring()
-  return "cdata(pos="..self.position..")"
+  return "cdata(pos=" .. self.position .. ")"
 end
 
 function FontCDATA:pos(p)
@@ -153,13 +153,13 @@ function FontReader:__gc()
 end
 
 function FontReader:__tostring()
-  return "reader("..self.path..")"
+  return "reader(" .. self.path .. ")"
 end
 
 ---@param offset integer
 ---@param len integer
 ---@return widget.fonts.cdata?
----@return string|nil errmsg
+---@return string | nil, errmsg
 function FontReader:cdata(offset, len)
   local data, errmsg = self:read(offset, len)
   if data then
@@ -195,14 +195,14 @@ end
 local function utf16betoutf8(src)
   local s, d = { tostring(src):byte(1, -1) }, {}
   for i = 1, #s - 1, 2 do
-    local c = s[i] * 256 + s[i+1]
-    if c < 0x80 then d[#d+1] = c
+    local c = s[i] * 256 + s[i + 1]
+    if c < 0x80 then d[#d + 1] = c
     elseif c < 0x800 then
       local x, y = div(c, 0x40)
-      d[#d+1] = x + 0xC0; d[#d+1] = y + 0x80
+      d[#d + 1] = x + 0xC0; d[#d + 1] = y + 0x80
     elseif c < 0x10000 then
       local x, y, z = div(c, 0x1000); y, z = div(y, 0x40)
-      d[#d+1] = x + 0xE0; d[#d+1] = y + 0x80; d[#d+1] = z + 0x80
+      d[#d + 1] = x + 0xE0; d[#d + 1] = y + 0x80; d[#d + 1] = z + 0x80
     else
       assert(nil)
     end
@@ -483,7 +483,7 @@ end
 ---Open a font file and read its metadata.
 ---@param font_path string
 ---@return widget.fonts.info?
----@return string|nil errmsg
+---@return string | nil errmsg
 function FontInfo:read(font_path)
   self.data = {}
   self.path = font_path
@@ -514,7 +514,7 @@ end
 ---copyright and license information which can be long.
 ---@param idx? integer Optional position of the embedded font
 ---@return widget.fonts.data?
----@return string|nil errmsg
+---@return string | nil errmsg
 function FontInfo:get_data(idx)
   idx = idx or 1
   local data = {}
