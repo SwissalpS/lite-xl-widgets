@@ -136,7 +136,7 @@ end
 ---Add a new font into the list.
 ---@param font widget.fontslist.font
 function FontsList:add_font(font)
-  self.list:add_row({font.name}, font)
+  self.list:add_row({ font.name }, font)
   self.list:set_visible_rows()
   self:on_change()
 end
@@ -145,7 +145,7 @@ end
 ---@param idx integer
 ---@param font widget.fontslist.font
 function FontsList:edit_font(idx, font)
-  self.list:set_row(idx, {font.name})
+  self.list:set_row(idx, { font.name })
   self.list:set_row_data(idx, font)
   self:on_change()
 end
@@ -162,7 +162,7 @@ end
 function FontsList:get_fonts()
   local output = {}
   local count = #self.list.rows
-  for i=1, count, 1 do
+  for i = 1, count, 1 do
     table.insert(output, self.list:get_row_data(i))
   end
   return output
