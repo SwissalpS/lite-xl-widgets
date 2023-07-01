@@ -26,7 +26,7 @@ MessageBox.info(
   function(self, button_id, button)
     if button_id == 3 then
       MessageBox.error(
-        "Error", {"No response was received!\nNo points for you!"}
+        "Error", { "No response was received!\nNo points for you!" }
       )
     elseif button_id == 2 then
       MessageBox.warning(
