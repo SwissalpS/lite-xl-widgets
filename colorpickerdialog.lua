@@ -48,10 +48,10 @@ function ColorPickerDialog:on_apply(value) end
 function ColorPickerDialog:update()
   if not ColorPickerDialog.super.update(self) then return false end
 
-  self.picker:set_position(style.padding.x/2, 0)
+  self.picker:set_position(style.padding.x / 2, 0)
 
   self.apply:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.picker:get_bottom() + style.padding.y
   )
   self.cancel:set_position(
