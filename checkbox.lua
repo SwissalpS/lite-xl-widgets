@@ -71,8 +71,8 @@ function CheckBox:on_click()
   self:on_change(self.checked)
 
   self.animating = true
-  self.animating_color = {table.unpack(style.caret)}
-  local target_color = {table.unpack(style.caret)}
+  self.animating_color = { table.unpack(style.caret) }
+  local target_color = { table.unpack(style.caret) }
 
   if self.checked then
     self.animating_color[4] = 0
@@ -81,7 +81,7 @@ function CheckBox:on_click()
     self.animating_color[4] = 255
     target_color[4] = 0
   end
-  self:animate(self.animating_color, {table.unpack(target_color)}, {
+  self:animate(self.animating_color, { table.unpack(target_color) }, {
     on_complete = function()
       self.animating = false
     end
@@ -121,9 +121,9 @@ function CheckBox:draw()
   )
 
   if self.animating then
-    renderer.draw_rect(bx + 2, by + 2, bw-4, bh-4, self.animating_color)
+    renderer.draw_rect(bx + 2, by + 2, bw - 4, bh - 4, self.animating_color)
   elseif self.checked then
-    renderer.draw_rect(bx + 2, by + 2, bw-4, bh-4, style.caret)
+    renderer.draw_rect(bx + 2, by + 2, bw - 4, bh - 4, style.caret)
   end
 
   renderer.draw_text(
