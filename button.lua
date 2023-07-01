@@ -139,7 +139,7 @@ function Button:draw()
       style.icon_font,
       self.icon.code,
       offsetx,
-      th > ih and (offsety + (h / 2)) - (ih/2) or (offsety + self.padding.y),
+      th > ih and (offsety + (h / 2)) - (ih / 2) or (offsety + self.padding.y),
       self.hover_text and hover or normal
     )
     offsetx = offsetx + style.icon_font:get_width(self.icon.code) + (style.padding.x / 2)
@@ -150,7 +150,7 @@ function Button:draw()
       font,
       self.label,
       offsetx,
-      ih > th and (offsety + (h / 2)) - (th/2) or (offsety + self.padding.y),
+      ih > th and (offsety + (h / 2)) - (th / 2) or (offsety + self.padding.y),
       self.hover_text or self.foreground_color or style.text
     )
   end
