@@ -7,7 +7,7 @@ local Label = require "libraries.widget.label"
 
 ---@class widget.filepicker : widget
 ---@field public pick_mode integer
----@field public filters table<integer,string>
+---@field public filters table<integer, string>
 ---@field private path string
 ---@field private file widget.label
 ---@field private textbox widget.textbox
@@ -15,7 +15,7 @@ local Label = require "libraries.widget.label"
 local FilePicker = Widget:extend()
 
 ---Operation modes for the file picker.
----@type table<string,integer>
+---@type table<string, integer>
 FilePicker.mode = {
   ---Opens file browser the selected file does not has to exist.
   FILE = 1,
@@ -130,8 +130,8 @@ function FilePicker:set_size(width, height)
   self.size.y = math.max(
     self.file:get_height(),
     self.button:get_height()
-    -- something is off on calculation since adding border width should not
-    -- be needed to display whole rendered control at all...
+    -- something is off in calculation since adding border width should not
+    -- be needed to display whole rendered control at all.
   ) + self.button.border.width
 end
 
@@ -248,7 +248,7 @@ end
 ---Filter a list of directories by applying currently set filters.
 ---@param self widget.filepicker
 ---@param list table<integer, string>
----@return table<integer,string>
+---@return table<integer, string>
 local function filter(self, list)
   if #self.filters > 0 then
     local new_list = {}
