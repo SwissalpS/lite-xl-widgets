@@ -75,7 +75,7 @@ end
 ---@param text string
 ---@param max_width number
 ---@param font widget.font Default is style.font
----@param overflow_chars? string Default is '...'
+---@param overflow_chars? string Default is "..."
 ---@return string chopped_text
 ---@return boolean overflows True if the text overflows
 function SelectBox:text_overflow(text, max_width, font, overflow_chars)
