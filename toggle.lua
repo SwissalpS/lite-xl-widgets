@@ -66,7 +66,7 @@ function Toggle:toggle()
   self:on_change(self.enabled)
 end
 
----@param text string|widget.styledtext
+---@param text string | widget.styledtext
 function Toggle:set_label(text)
   Toggle.super.set_label(self, text)
   self.caption_label:set_label(text)
@@ -98,11 +98,11 @@ function Toggle:update()
     self.switch_x = switch_x
     self.toggle_bg = {}
     local color = self.enabled and style.caret or style.line_number
-    for i=1, 4, 1 do self.toggle_bg[i] = color[i] end
+    for i = 1, 4, 1 do self.toggle_bg[i] = color[i] end
   else
     local color = self.enabled and style.caret or style.line_number
     self:move_towards(self, "switch_x", switch_x, 0.2)
-    for i=1, 4, 1 do
+    for i = 1, 4, 1 do
       self:move_towards(self.toggle_bg, i, color[i], 0.2)
     end
     if self.switch_x == switch_x then
