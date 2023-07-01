@@ -131,8 +131,8 @@ end
 ---Set or remove the icon for the given pane.
 ---@param name string
 ---@param icon string
----@param color? renderer.color|nil
----@param hover_color? renderer.color|nil
+---@param color? renderer.color | nil
+---@param hover_color? renderer.color | nil
 function FoldingBook:set_pane_icon(name, icon, color, hover_color)
   local pane = self:get_pane(name)
   if pane then
