@@ -18,7 +18,7 @@ function Label:new(parent, label)
   self.type_name = "widget.label"
   self.clickable = false
   self.border.width = 0
-  self.custom_size = {x = 0, y = 0}
+  self.custom_size = { x = 0, y = 0 }
 
   self:set_label(label or "")
 end
@@ -32,7 +32,7 @@ function Label:set_size(width, height)
 end
 
 ---Set the label text and recalculates the widget size.
----@param text string|widget.styledtext
+---@param text string | widget.styledtext
 function Label:set_label(text)
   Label.super.set_label(self, text)
 
