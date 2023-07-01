@@ -73,7 +73,7 @@ function FontDialog:new(font, options)
   self.choose:set_tooltip("Choose a Font")
   function self.choose:on_click()
     Fonts.show_picker(function(name, path)
-      local fontdata = {name = name, path = path}
+      local fontdata = { name = name, path = path }
       this:set_font(fontdata)
       this:update_preview()
     end, false)
@@ -85,7 +85,7 @@ function FontDialog:new(font, options)
   self.choose_mono:set_tooltip("Choose a Monospace Font")
   function self.choose_mono:on_click()
     Fonts.show_picker(function(name, path)
-      local fontdata = {name = name, path = path}
+      local fontdata = { name = name, path = path }
       this:set_font(fontdata)
       this:update_preview()
     end, true)
@@ -258,20 +258,20 @@ function FontDialog:on_save(font, options) end
 function FontDialog:update()
   if not FontDialog.super.update(self) then return false end
 
-  self.preview:set_position(style.padding.x/2, style.padding.y/2)
+  self.preview:set_position(style.padding.x / 2, style.padding.y / 2)
 
   self.font_size:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.preview:get_bottom() + style.padding.y
   )
 
   self.choose:set_position(
-    self.font_size:get_right() + (style.padding.x/2),
+    self.font_size:get_right() + (style.padding.x / 2),
     self.preview:get_bottom() + style.padding.y
   )
 
   self.choose_mono:set_position(
-    self.choose:get_right() + (style.padding.x/2),
+    self.choose:get_right() + (style.padding.x / 2),
     self.preview:get_bottom() + style.padding.y
   )
 
@@ -281,16 +281,16 @@ function FontDialog:update()
   )
 
   self.antialiasing:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.line:get_bottom() + style.padding.y
   )
   self.hinting:set_position(
-    self.antialiasing:get_right() + (style.padding.x/2),
+    self.antialiasing:get_right() + (style.padding.x / 2),
     self.line:get_bottom() + style.padding.y
   )
 
   self.bold:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.hinting:get_bottom() + style.padding.y
   )
   self.italic:set_position(
@@ -311,7 +311,7 @@ function FontDialog:update()
   )
 
   self.save:set_position(
-    style.padding.x/2,
+    style.padding.x / 2,
     self.underline:get_bottom() + style.padding.y
   )
   self.cancel:set_position(
