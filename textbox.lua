@@ -285,7 +285,7 @@ function TextBox:draw()
   self.border.color = self.hover_border or style.text
   TextBox.super.draw(self)
   self.textview.position.x = self.position.x + (style.padding.x / 2)
-  self.textview.position.y = self.position.y - (style.padding.y/2.5)
+  self.textview.position.y = self.position.y - (style.padding.y / 2.5)
   self.textview.size.x = self.size.x
   self.textview.size.y = self.size.y - (style.padding.y * 2)
 
