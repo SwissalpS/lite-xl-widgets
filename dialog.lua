@@ -58,7 +58,7 @@ function Dialog:get_panel()
 end
 
 ---Change the dialog title.
----@param text string|widget.styledtext
+---@param text string | widget.styledtext
 function Dialog:set_title(text)
   self.title:set_label(text)
 end
@@ -148,7 +148,7 @@ function Dialog:draw()
     style.selection
   )
 
-  for i=#self.childs, 1, -1 do
+  for i = #self.childs, 1, -1 do
     self.childs[i]:draw()
   end
 
