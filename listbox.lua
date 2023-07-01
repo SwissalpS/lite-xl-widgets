@@ -18,9 +18,9 @@ local MessageBox = require "libraries.widget.messagebox"
 ---@alias widget.listbox.drawcol fun(self, row, x, y, font, color, only_calc)
 ---@alias widget.listbox.filtercb fun(self:widget.listbox, idx:integer, row:widget.listbox.row, data:any):number?
 
----@alias widget.listbox.row table<integer, renderer.font|widget.fontreference|renderer.color|integer|string|widget.listbox.drawcol>
+---@alias widget.listbox.row table<integer, renderer.font | widget.fontreference | renderer.color | integer | string | widget.listbox.drawcol>
 
----@alias widget.listbox.colpos table<integer,integer>
+---@alias widget.listbox.colpos table<integer, integer>
 
 ---@class widget.listbox : widget
 ---@field rows widget.listbox.row[]
@@ -72,7 +72,7 @@ function ListBox:new(parent)
   self.last_scale = 0
   self.last_offset = 0
 
-  self:set_size(200, (self:get_font():get_height() + (style.padding.y*2)) * 3)
+  self:set_size(200, (self:get_font():get_height() + (style.padding.y * 2)) * 3)
 end
 
 ---Set which rows to show using the specified match string or callback,
@@ -108,7 +108,7 @@ function ListBox:filter(match)
         score = system.fuzzy_match(self:get_row_text(row), match, false)
       end
       if score then
-        table.insert(rows, {row, self.row_data_original[idx], score, idx})
+        table.insert(rows, { row, self.row_data_original[idx], score, idx })
       end
     end
 
@@ -181,7 +181,7 @@ function ListBox:calc_row_size_pos(ridx)
       y = y + self:get_font():get_height() + style.padding.y
     end
   else
-    y = y + self.rows[ridx-1].y + self.rows[ridx-1].h
+    y = y + self.rows[ridx - 1].y + self.rows[ridx - 1].h
   end
 
   self:draw_row(ridx, x, y, true)
@@ -238,7 +238,7 @@ function ListBox:set_visible_rows()
   self.visible_rows = {}
   local first_visible = false
   local height = 0
-  for i=idx, total, step do
+  for i = idx, total, step do
     local row = self.rows[i]
     if row then
       local top = row.y - colh + row.h + oy
@@ -275,14 +275,14 @@ function ListBox:set_visible_rows()
   local first_row = self.visible_rows[1]
   if #self.visible_rows > 0 then
     if step == 1 then
-      if self.rows[last_row+1] then
-        table.insert(self.visible_rows, last_row+1)
+      if self.rows[last_row + 1] then
+        table.insert(self.visible_rows, last_row + 1)
       end
     else
-      if self.rows[first_row-2] and first_row-2 ~= 1 then
-        table.insert(self.visible_rows, first_row-2)
-      elseif self.rows[last_row+1] then
-        table.insert(self.visible_rows, last_row+1)
+      if self.rows[first_row - 2] and first_row - 2 ~= 1 then
+        table.insert(self.visible_rows, first_row - 2)
+      elseif self.rows[last_row + 1] then
+        table.insert(self.visible_rows, last_row + 1)
       end
 
       -- sort for proper subsequent loop interations
@@ -302,7 +302,7 @@ function ListBox:set_visible_rows()
         if
           self.visible_rows[#self.visible_rows]
           ==
-          self.visible_rows[#self.visible_rows-1]
+          self.visible_rows[#self.visible_rows - 1]
         then
           table.remove(self.visible_rows, #self.visible_rows)
         end
@@ -316,7 +316,7 @@ end
 local function array_remove(t, fnKeep)
   local j, n = 1, #t;
 
-  for i=1, n do
+  for i = 1, n do
     if (fnKeep(t, i, j)) then
       if (i ~= j) then
         t[j] = t[i];
@@ -367,7 +367,7 @@ function ListBox:remove_row(ridx)
   end
 
   if not last_col and #self.rows > 0 then
-    for idx=ridx, #self.rows, 1 do
+    for idx = ridx, #self.rows, 1 do
       self.rows[idx].y = self.rows[idx].y - row_h
     end
   end
@@ -424,7 +424,7 @@ end
 
 ---Change the data assigned to a row.
 ---@param idx integer
----@param data any|nil
+---@param data any | nil
 function ListBox:set_row_data(idx, data)
   if self.rows[idx] then
     self.row_data[idx] = data
@@ -436,7 +436,7 @@ end
 
 ---Get the data associated with a row.
 ---@param idx integer
----@return any|nil
+---@return any | nil
 function ListBox:get_row_data(idx)
   if type(self.row_data[idx]) ~= "nil" then
     return self.row_data[idx]
@@ -473,7 +473,7 @@ function ListBox:get_col_positions(row)
 
   for _, element in ipairs(row) do
     if element == ListBox.COLEND then
-      table.insert(positions, { idx_start, idx-1 })
+      table.insert(positions, { idx_start, idx - 1 })
       idx_start = idx + 1
     elseif idx == row_len then
       table.insert(positions, { idx_start, idx })
@@ -522,14 +522,14 @@ end
 ---@param idx integer
 ---@return boolean moved
 function ListBox:move_row_up(idx)
-  return self:move_row_to(idx, idx-1)
+  return self:move_row_to(idx, idx - 1)
 end
 
 ---Move a row one position down if possible.
 ---@param idx integer
 ---@return boolean moved
 function ListBox:move_row_down(idx)
-  self:move_row_to(idx, idx+1)
+  self:move_row_to(idx, idx + 1)
 end
 
 ---Enables expanding the element to total size of parent on content updates.
@@ -585,7 +585,7 @@ function ListBox:draw_row_range(ridx, row, start_idx, end_idx, x, y, only_calc)
   local new_line = false
   local nx = x
 
-  for pos=start_idx, end_idx, 1 do
+  for pos = start_idx, end_idx, 1 do
     local element = row[pos]
     local ele_type = type(element)
     if
@@ -881,7 +881,7 @@ function ListBox:draw()
   core.pop_clip_rect()
 
   if not self.expand then
-    self.largest_row = math.max(new_width, self:get_width() - (self.border.width*2))
+    self.largest_row = math.max(new_width, self:get_width() - (self.border.width * 2))
     self.size.x = self.largest_row
   end
 
