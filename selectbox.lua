@@ -38,8 +38,8 @@ function SelectBox:new(parent, label)
   self.list.on_row_click = function(this, idx, data)
     list_on_row_click(this, idx, data)
     if idx ~= 1 then
-      self.selected = idx-1
-      self:on_selected(idx-1, data)
+      self.selected = idx - 1
+      self:on_selected(idx - 1, data)
       self:on_change(self.selected)
     end
     self.list_container:hide_animated(true)
@@ -51,16 +51,16 @@ end
 ---Set the text displayed when no item is selected.
 ---@param text string
 function SelectBox:set_label(text)
-  SelectBox.super.set_label(self, "- "..text.." -")
+  SelectBox.super.set_label(self, "- " .. text .. " -")
   if not self.list.rows[1] then
-    self.list:add_row({"- "..text.." -"})
+    self.list:add_row({ "- " .. text .. " -" })
   else
-    self.list.rows[1][1] = "- "..text.." -"
+    self.list.rows[1][1] = "- " .. text .. " -"
   end
 end
 
 ---Add selectable option to the selectbox.
----@param text widget.styledtext|string
+---@param text widget.styledtext | string
 ---@param data any
 function SelectBox:add_option(text, data)
   if type(text) == "string" then
@@ -106,9 +106,9 @@ end
 ---Set the active option index.
 ---@param idx integer
 function SelectBox:set_selected(idx)
-  if self.list.rows[idx+1] then
+  if self.list.rows[idx + 1] then
     self.selected = idx
-    self.list:set_selected(idx+1)
+    self.list:set_selected(idx + 1)
   else
     self.selected = 0
     self.list:set_selected()
@@ -123,7 +123,7 @@ function SelectBox:get_selected()
 end
 
 ---Get the currently selected option text.
----@return string|nil
+---@return string | nil
 function SelectBox:get_selected_text()
   if self.selected > 0 then
     return self.list:get_row_text(self.selected + 1)
@@ -132,7 +132,7 @@ function SelectBox:get_selected_text()
 end
 
 ---Get the currently selected option associated data.
----@return any|nil
+---@return any | nil
 function SelectBox:get_selected_data()
   if self.selected > 0 then
     return self.list:get_row_data(self.selected + 1)
@@ -234,7 +234,7 @@ function SelectBox:draw()
     - (style.padding.x / 2) -- space between icon and text
 
   local item_text = self.selected == 0 and
-    self.label or self.list:get_row_text(self.selected+1)
+    self.label or self.list:get_row_text(self.selected + 1)
 
   local text = self:text_overflow(item_text, max_width, font)
 
