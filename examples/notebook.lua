@@ -83,7 +83,7 @@ listbox:add_row({
 })
 
 core.add_thread(function()
-  for num=1, 1000 do
+  for num = 1, 1000 do
     listbox:add_row({
       style.icon_font, style.syntax.string, "!", style.font, style.text, " Error",
       ListBox.COLEND,
@@ -116,13 +116,13 @@ notebook.defer_draw = false
 local inside_node = false
 
 -- You can add the widget as a lite-xl node
-command.add(nil,{
+command.add(nil, {
   ["notebook-widget:toggle"] = function()
     if inside_node then
       notebook:toggle_visible()
     else
       local node = core.root_view:get_primary_node()
-      node:split("down", notebook, {y=true}, true)
+      node:split("down", notebook, { y = true }, true)
       notebook:show()
       inside_node = true
     end
