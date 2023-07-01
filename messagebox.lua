@@ -92,7 +92,7 @@ function MessageBox:set_message(text)
 end
 
 ---Adds a new button to the message box.
----@param button_or_label string|widget.button
+---@param button_or_label string | widget.button
 function MessageBox:add_button(button_or_label)
   if type(button_or_label) == "table" then
     table.insert(self.buttons, button_or_label)
@@ -262,7 +262,7 @@ function MessageBox:draw()
     style.selection
   )
 
-  for i=#self.childs, 1, -1 do
+  for i = #self.childs, 1, -1 do
     self.childs[i]:draw()
   end
 
